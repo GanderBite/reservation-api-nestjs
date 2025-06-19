@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
+import { DrizzleDb } from './types/drizzle';
 
 export const DRIZZLE = Symbol('drizzle-orm');
 
@@ -13,7 +14,7 @@ export const DRIZZLE = Symbol('drizzle-orm');
         const connectionString =
           configService.getOrThrow<string>('DATABASE_URL');
 
-        return drizzle(connectionString);
+        return drizzle(connectionString) as DrizzleDb;
       },
     },
   ],
