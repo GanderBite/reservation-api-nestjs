@@ -26,8 +26,8 @@ export class AuthService {
   signIn(identity: IdentityPayload): AuthTokenResponse {
     return {
       token: this.jwtService.createToken({
-        identityId: identity.getId(),
         roles: identity.getRoles(),
+        sub: identity.getId(),
       }),
     };
   }
@@ -52,8 +52,8 @@ export class AuthService {
 
       return {
         token: this.jwtService.createToken({
-          identityId,
           roles: ['USER'],
+          sub: identityId,
         }),
       };
     } catch (err) {

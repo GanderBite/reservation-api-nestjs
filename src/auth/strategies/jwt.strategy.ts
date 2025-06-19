@@ -3,8 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import { JWT_SECRET } from '../auth.constants';
-import { IdentityPayload } from '../entities/identity-payload';
-import { JWTPayload } from '../types/jwt-payload';
+import { Payload } from '../services/jwt.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -15,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  validate(payload: JWTPayload) {
-    return new IdentityPayload(payload.sub, payload.roles);
+  validate(payload: Payload) {
+    return { identityId: payload.sub, roles: payload.roles };
   }
 }

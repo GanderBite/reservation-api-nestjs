@@ -5,7 +5,7 @@ import { Id } from 'src/shared/entities/id';
 import { IdentityPayload } from '../entities/identity-payload';
 import { UserRoles } from '../entities/user-roles';
 
-type Payload = { identityId: Id; roles: UserRoles };
+export type Payload = { roles: UserRoles; sub: Id };
 
 @Injectable()
 export class JWTService {
@@ -18,6 +18,6 @@ export class JWTService {
   verifyToken(token: string) {
     const payload = this.jwtService.verify<Payload>(token);
 
-    return new IdentityPayload(payload.identityId, payload.roles);
+    return new IdentityPayload(payload.sub, payload.roles);
   }
 }
