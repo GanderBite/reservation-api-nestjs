@@ -5,11 +5,11 @@ import * as bcrypt from 'bcrypt';
 export class PasswordService {
   private readonly saltRounds = 10;
 
-  async hashPassword(password: string) {
-    return bcrypt.hash(password, this.saltRounds);
-  }
-
   async comparePasswords(password: string, encryptedPassword: string) {
     return bcrypt.compare(password, encryptedPassword);
+  }
+
+  async hashPassword(password: string) {
+    return bcrypt.hash(password, this.saltRounds);
   }
 }

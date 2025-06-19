@@ -1,16 +1,17 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PasswordService } from './password.service';
+import { Email } from 'src/shared/entities/email';
+import { ApiException } from 'src/shared/errors/api-error';
+
 import { SignUpDto } from '../auth.dtos';
-import { AuthRepository } from '../repositories/auth.repository';
-import { JWTService } from './jwt.service';
 import {
   EmailTakenException,
   InvalidCredentialsException,
 } from '../entities/errors';
-import { ApiException } from 'src/shared/errors/api-error';
-import { AuthTokenResponse } from '../types/auth-responses';
-import { Email } from 'src/shared/entities/email';
 import { IdentityPayload } from '../entities/identity-payload';
+import { AuthRepository } from '../repositories/auth.repository';
+import { AuthTokenResponse } from '../types/auth-responses';
+import { JWTService } from './jwt.service';
+import { PasswordService } from './password.service';
 
 @Injectable()
 export class AuthService {
@@ -21,6 +22,15 @@ export class AuthService {
     private jwtService: JWTService,
     private authRepository: AuthRepository,
   ) {}
+
+  signIn(identity: IdentityPayload): AuthTokenResponse {
+    return {
+      token: this.jwtService.createToken({
+        identityId: identity.getId(),
+        roles: identity.getRoles(),
+      }),
+    };
+  }
 
   async signUp(signUpDto: SignUpDto): Promise<AuthTokenResponse> {
     const { email, password } = signUpDto;
@@ -69,15 +79,6 @@ export class AuthService {
     return {
       identityId: identity.getId(),
       roles: identity.getRoles(),
-    };
-  }
-
-  signIn(identity: IdentityPayload): AuthTokenResponse {
-    return {
-      token: this.jwtService.createToken({
-        identityId: identity.getId(),
-        roles: identity.getRoles(),
-      }),
     };
   }
 }

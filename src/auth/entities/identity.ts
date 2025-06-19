@@ -1,5 +1,6 @@
 import { Email } from 'src/shared/entities/email';
 import { Id } from 'src/shared/entities/id';
+
 import { UserRoles } from './user-roles';
 
 export class Identity {
@@ -10,12 +11,12 @@ export class Identity {
     private roles: UserRoles,
   ) {}
 
-  getId() {
-    return this.id;
-  }
-
   getEmail(): Email {
     return this.email;
+  }
+
+  getId() {
+    return this.id;
   }
 
   getPassword() {

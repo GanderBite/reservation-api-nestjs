@@ -1,4 +1,5 @@
 import { Id } from 'src/shared/entities/id';
+
 import { UserRoles } from './user-roles';
 
 export class IdentityPayload {

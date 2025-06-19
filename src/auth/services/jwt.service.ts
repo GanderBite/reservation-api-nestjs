@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Id } from 'src/shared/entities/id';
-import { UserRoles } from '../entities/user-roles';
+
 import { IdentityPayload } from '../entities/identity-payload';
+import { UserRoles } from '../entities/user-roles';
 
 type Payload = { identityId: Id; roles: UserRoles };
 

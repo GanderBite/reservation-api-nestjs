@@ -1,7 +1,8 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { Id } from 'src/shared/entities/id';
-import { UserRoles } from '../entities/user-roles';
+
 import { IdentityPayload } from '../entities/identity-payload';
+import { UserRoles } from '../entities/user-roles';
 
 export type IdentityReq = { identityId: Id; roles: UserRoles };
 
