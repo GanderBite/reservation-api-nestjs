@@ -22,6 +22,13 @@
       "when": 1750453515435,
       "tag": "0002_low_prism",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1750456597442,
+      "tag": "0003_broad_ultimatum",
+      "breakpoints": true
     }
   ]
 }
