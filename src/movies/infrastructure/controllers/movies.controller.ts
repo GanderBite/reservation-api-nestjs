@@ -12,12 +12,12 @@ import {
 import { JWTAuthGuard } from 'src/auth/guards/auth-jwt.quard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { CreateMovieDto } from 'src/movies/application/dtos/create-movie.dto';
+import { MovieDto } from 'src/movies/application/dtos/movie.dto';
 import { MovieExistsError } from 'src/movies/application/entities/errors';
 import { MovieService } from 'src/movies/infrastructure/services/movie.service';
+import { Response } from 'src/shared/types/response.type';
 
 import { CreatedResponse } from '../responses/created.response';
-import { MovieDto } from 'src/movies/application/dtos/movie.dto';
-import { Response } from 'src/shared/types/response.type';
 
 @Controller('movies')
 export class MoviesController {

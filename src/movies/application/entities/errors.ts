@@ -3,3 +3,9 @@ export class MovieExistsError extends Error {
     super(`Movie "${title}" already exists`);
   }
 }
+
+export class MovieNotFoundError extends Error {
+  constructor(id: string) {
+    super(`Movie "${id}" not found`);
+  }
+}
