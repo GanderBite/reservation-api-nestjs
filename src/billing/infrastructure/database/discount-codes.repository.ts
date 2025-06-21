@@ -16,20 +16,35 @@ import { Id } from 'src/shared/entities/id';
 @Injectable()
 export class DiscountCodesRepository implements IDiscountCodesRepository {
   constructor(@Inject(DRIZZLE) private db: DrizzleDb) {}
+  async getById(id: Id): Promise<DiscountCode> {
+    const records = await this.db
+      .select()
+      .from(discountCodes)
+      .where(eq(discountCodes.id, id));
 
-  async getByCode(code: string): Promise<DiscountCode> {
+    if (!records.length) {
+      throw new DiscountCodeNotFoundError(id);
+    }
+
+    const { code, id: discountCodeId, isActive, value } = records[0];
+
+    return new DiscountCode(discountCodeId, code, value, isActive);
+  }
+
+  async insertDiscountCode({
+    code,
+    value,
+  }: CreateDiscountCodeDto): Promise<Id> {
     try {
-      const records = await this.db
-        .select()
-        .from(discountCodes)
-        .where(eq(discountCodes.code, code));
-      if (!records.length) {
-        throw new DiscountCodeNotFoundError(code);
-      }
+      const [created] = await this.db
+        .insert(discountCodes)
+        .values({
+          code,
+          value,
+        })
+        .returning({ id: discountCodes.id });
 
-      const { code: discountCode, id, value } = records[0];
-
-      return new DiscountCode(id, discountCode, value);
+      return created.id;
     } catch (err) {
       const error = err as { cause: DatabaseError };
       switch (error.cause.code) {
@@ -41,33 +56,22 @@ export class DiscountCodesRepository implements IDiscountCodesRepository {
     }
   }
 
-  async getById(id: Id): Promise<DiscountCode> {
-    const records = await this.db
-      .select()
-      .from(discountCodes)
-      .where(eq(discountCodes.code, id));
-
-    if (!records.length) {
-      throw new DiscountCodeNotFoundError(id);
+  async updateDiscountCode(
+    discountCodeId: Id,
+    discountCode: DiscountCode,
+  ): Promise<void> {
+    try {
+      await this.db
+        .update(discountCodes)
+        .set({
+          code: discountCode.getCode(),
+          isActive: discountCode.getIsActive(),
+          value: discountCode.getValue(),
+        })
+        .where(eq(discountCodes.id, discountCodeId));
+    } catch (err) {
+      const error = err as { cause: DatabaseError };
+      console.log(error.cause.code);
     }
-
-    const { code, id: discountCodeId, value } = records[0];
-
-    return new DiscountCode(discountCodeId, code, value);
-  }
-
-  async insertDiscountCode({
-    code,
-    value,
-  }: CreateDiscountCodeDto): Promise<Id> {
-    const [created] = await this.db
-      .insert(discountCodes)
-      .values({
-        code,
-        value,
-      })
-      .returning({ id: discountCodes.id });
-
-    return created.id;
   }
 }

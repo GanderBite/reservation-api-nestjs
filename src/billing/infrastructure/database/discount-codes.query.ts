@@ -5,7 +5,6 @@ import { DiscountCodeNotFoundError } from 'src/billing/application/entities/erro
 import { discountCodes } from 'src/billing/schemas/discount-codes.schema';
 import { DRIZZLE } from 'src/drizzle/drizzle.module';
 import { DrizzleDb } from 'src/drizzle/types/drizzle';
-import { Id } from 'src/shared/entities/id';
 
 @Injectable()
 export class DiscountCodesQuery {
@@ -20,23 +19,8 @@ export class DiscountCodesQuery {
       throw new DiscountCodeNotFoundError(code);
     }
 
-    const { code: discountCode, id, value } = records[0];
+    const { code: discountCode, id, isActive, value } = records[0];
 
-    return new DiscountCode(id, discountCode, value);
-  }
-
-  async getById(id: Id): Promise<DiscountCode> {
-    const records = await this.db
-      .select()
-      .from(discountCodes)
-      .where(eq(discountCodes.code, id));
-
-    if (!records.length) {
-      throw new DiscountCodeNotFoundError(id);
-    }
-
-    const { code, id: discountCodeId, value } = records[0];
-
-    return new DiscountCode(discountCodeId, code, value);
+    return new DiscountCode(id, discountCode, value, isActive);
   }
 }
