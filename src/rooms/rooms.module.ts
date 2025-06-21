@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
+import { BillingModule } from 'src/billing/billing.module';
 import { DrizzleModule } from 'src/drizzle/drizzle.module';
 
+import { AclPricesService } from './infrastructure/acls/prices.service';
 import { RoomsController } from './infrastructure/controllers/rooms.controller';
 import { RoomsRepository } from './infrastructure/database/rooms.repository';
 import { SeatsRepository } from './infrastructure/database/seats.repository';
@@ -9,7 +11,13 @@ import { SeatService } from './infrastructure/services/seat.service';
 
 @Module({
   controllers: [RoomsController],
-  imports: [DrizzleModule],
-  providers: [SeatService, SeatsRepository, RoomsService, RoomsRepository],
+  imports: [DrizzleModule, BillingModule],
+  providers: [
+    SeatService,
+    SeatsRepository,
+    RoomsService,
+    RoomsRepository,
+    AclPricesService,
+  ],
 })
 export class RoomsModule {}

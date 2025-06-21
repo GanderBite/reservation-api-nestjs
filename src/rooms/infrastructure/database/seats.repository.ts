@@ -11,12 +11,17 @@ import { Id } from 'src/shared/entities/id';
 @Injectable()
 export class SeatsRepository implements ISeatsRepository {
   constructor(@Inject(DRIZZLE) private db: DrizzleDb) {}
-  async insertSeat(roomId: Id, { col, row }: CreateSeatDto): Promise<Id> {
+  async insertSeat(
+    roomId: Id,
+    priceId: Id,
+    { col, row }: CreateSeatDto,
+  ): Promise<Id> {
     try {
       const [created] = await this.db
         .insert(seats)
         .values({
           col,
+          priceId,
           roomId,
           row,
         })
