@@ -11,7 +11,7 @@ import { JWTAuthGuard } from 'src/auth/guards/auth-jwt.quard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { CreateRoomDto } from 'src/rooms/application/dtos/create-room.dto';
 import { CreateSeatDto } from 'src/rooms/application/dtos/create-seat.dto';
-import { SeatExistsError } from 'src/rooms/domain/errors';
+import { SeatExistsError } from 'src/rooms/application/entities/errors';
 import { Id } from 'src/shared/entities/id';
 
 import { RoomsService } from '../services/rooms.service';

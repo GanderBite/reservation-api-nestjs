@@ -3,8 +3,8 @@ import { DatabaseError } from 'pg';
 import { DRIZZLE } from 'src/drizzle/drizzle.module';
 import { DrizzleDb } from 'src/drizzle/types/drizzle';
 import { CreateSeatDto } from 'src/rooms/application/dtos/create-seat.dto';
+import { SeatExistsError } from 'src/rooms/application/entities/errors';
 import { ISeatsRepository } from 'src/rooms/application/repositories/seats.repository.type';
-import { SeatExistsError } from 'src/rooms/domain/errors';
 import { seats } from 'src/rooms/schemas/seats.schema';
 import { Id } from 'src/shared/entities/id';
 

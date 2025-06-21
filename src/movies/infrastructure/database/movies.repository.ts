@@ -3,8 +3,8 @@ import { DatabaseError } from 'pg';
 import { DRIZZLE } from 'src/drizzle/drizzle.module';
 import { DrizzleDb } from 'src/drizzle/types/drizzle';
 import { CreateMovieDto } from 'src/movies/application/dtos/create-movie.dto';
+import { MovieExistsError } from 'src/movies/application/entities/errors';
 import { IMovieRepository } from 'src/movies/application/repositories/movies.repository.type';
-import { MovieExistsError } from 'src/movies/domain/errors';
 import { movies } from 'src/movies/schemas/movies.schema';
 import { Id } from 'src/shared/entities/id';
 
