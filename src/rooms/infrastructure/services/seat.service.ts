@@ -9,7 +9,7 @@ import { SeatsRepository } from '../database/seats.repository';
 export class SeatService {
   constructor(private seatsRepository: SeatsRepository) {}
 
-  createSeat(seat: CreateSeatDto): Promise<Id> {
-    return createSeatUseCase(this.seatsRepository)(seat);
+  createSeat(roomId: Id, seat: CreateSeatDto): Promise<Id> {
+    return createSeatUseCase(this.seatsRepository)(roomId, seat);
   }
 }
