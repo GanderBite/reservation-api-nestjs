@@ -15,11 +15,13 @@ import { JWTAuthGuard } from 'src/auth/guards/auth-jwt.quard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { CreateRoomDto } from 'src/rooms/application/dtos/create-room.dto';
 import { CreateSeatDto } from 'src/rooms/application/dtos/create-seat.dto';
+import { RoomDto } from 'src/rooms/application/dtos/room.dto';
 import {
   RoomNotFoundError,
   SeatExistsError,
 } from 'src/rooms/application/entities/errors';
 import { Id } from 'src/shared/entities/id';
+import { Response } from 'src/shared/types/response.type';
 
 import { RoomsService } from '../services/rooms.service';
 import { SeatService } from '../services/seat.service';
@@ -61,7 +63,7 @@ export class RoomsController {
   @CacheTTL(60 * 1000)
   @Get('/:roomId')
   @UseInterceptors(CacheInterceptor)
-  async getRoom(@Param('roomId') roomId: Id) {
+  async getRoom(@Param('roomId') roomId: Id): Promise<Response<RoomDto>> {
     try {
       const room = await this.roomsService.getRoom(roomId);
 
