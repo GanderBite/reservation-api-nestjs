@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { DrizzleModule } from './drizzle/drizzle.module';
 import { MoviesModule } from './movies/movies.module';
 import { RoomsModule } from './rooms/rooms.module';
+import { BillingModule } from './billing/billing.module';
 
 @Module({
   controllers: [],
@@ -14,6 +15,7 @@ import { RoomsModule } from './rooms/rooms.module';
     AuthModule,
     MoviesModule,
     RoomsModule,
+    BillingModule,
   ],
   providers: [],
 })
