@@ -4,6 +4,7 @@ import { createShowtimeUseCase } from 'src/movies/application/use-cases/create-s
 
 import { AclPricesService } from '../acls/prices.service';
 import { MoviesRepository } from '../database/movies.repository';
+import { ShowtimesQuery } from '../database/showtimes.query';
 import { ShowtimesRepository } from '../database/showtimes.repository';
 
 @Injectable()
@@ -12,6 +13,7 @@ export class ShowtimesService {
     private showtimesRepository: ShowtimesRepository,
     private moviesRepository: MoviesRepository,
     private pricesService: AclPricesService,
+    private showtimesQuery: ShowtimesQuery,
   ) {}
 
   createShowtime(showtime: CreateShowtimeDto) {
@@ -20,5 +22,9 @@ export class ShowtimesService {
       this.moviesRepository,
       this.pricesService,
     )(showtime);
+  }
+
+  getAllShowtimes() {
+    return this.showtimesQuery.getAll();
   }
 }

@@ -7,6 +7,7 @@ import { MoviesController } from './infrastructure/controllers/movies.controller
 import { ShowtimesController } from './infrastructure/controllers/showtimes.controller';
 import { MoviesQuery } from './infrastructure/database/movies.query';
 import { MoviesRepository } from './infrastructure/database/movies.repository';
+import { ShowtimesQuery } from './infrastructure/database/showtimes.query';
 import { ShowtimesRepository } from './infrastructure/database/showtimes.repository';
 import { MovieService } from './infrastructure/services/movie.service';
 import { ShowtimesService } from './infrastructure/services/showtimes.service';
@@ -20,6 +21,7 @@ import { ShowtimesService } from './infrastructure/services/showtimes.service';
     MoviesQuery,
     ShowtimesService,
     ShowtimesRepository,
+    ShowtimesQuery,
     AclPricesService,
   ],
 })
