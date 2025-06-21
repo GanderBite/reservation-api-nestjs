@@ -8,9 +8,9 @@ import {
 } from '@nestjs/common';
 import { JWTAuthGuard } from 'src/auth/guards/auth-jwt.quard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { CreateMovieDto } from 'src/cinema/application/dtos/create-movie.dto';
-import { MovieExistsError } from 'src/cinema/domain/errors';
-import { MovieService } from 'src/cinema/infrastructure/services/movie.service';
+import { CreateMovieDto } from 'src/movies/application/dtos/create-movie.dto';
+import { MovieExistsError } from 'src/movies/domain/errors';
+import { MovieService } from 'src/movies/infrastructure/services/movie.service';
 
 import { CreatedResponse } from '../responses/created.response';
 

@@ -3,7 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 
 import { AuthModule } from './auth/auth.module';
 import { DrizzleModule } from './drizzle/drizzle.module';
-import { CinemaModule } from './cinema/cinema.module';
+import { MoviesModule } from './movies/movies.module';
+import { RoomsModule } from './rooms/rooms.module';
 
 @Module({
   controllers: [],
@@ -11,7 +12,8 @@ import { CinemaModule } from './cinema/cinema.module';
     ConfigModule.forRoot({ isGlobal: true }),
     DrizzleModule,
     AuthModule,
-    CinemaModule,
+    MoviesModule,
+    RoomsModule,
   ],
   providers: [],
 })

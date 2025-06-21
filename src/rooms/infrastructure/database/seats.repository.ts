@@ -1,33 +1,32 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DatabaseError } from 'pg';
-import { CreateMovieDto } from 'src/cinema/application/dtos/create-movie.dto';
-import { IMovieRepository } from 'src/cinema/application/repositories/movies.repository.type';
-import { MovieExistsError } from 'src/cinema/domain/errors';
-import { movies } from 'src/cinema/schemas/movies.schema';
 import { DRIZZLE } from 'src/drizzle/drizzle.module';
 import { DrizzleDb } from 'src/drizzle/types/drizzle';
+import { CreateSeatDto } from 'src/rooms/application/dtos/create-seat.dto';
+import { ISeatsRepository } from 'src/rooms/application/repositories/seats.repository.type';
+import { SeatExistsError } from 'src/rooms/domain/errors';
+import { seats } from 'src/rooms/schemas/seats.schema';
 import { Id } from 'src/shared/entities/id';
 
 @Injectable()
-export class MoviesRepository implements IMovieRepository {
+export class SeatsRepository implements ISeatsRepository {
   constructor(@Inject(DRIZZLE) private db: DrizzleDb) {}
-
-  async insertMovie({ duration, title }: CreateMovieDto): Promise<Id> {
+  async insertSeat({ col, row }: CreateSeatDto): Promise<Id> {
     try {
       const [created] = await this.db
-        .insert(movies)
+        .insert(seats)
         .values({
-          duration,
-          title,
+          col,
+          row,
         })
-        .returning({ id: movies.id });
+        .returning({ id: seats.id });
 
       return created.id;
     } catch (err) {
       const error = err as { cause: DatabaseError };
       switch (error.cause.code) {
         case '23505':
-          throw new MovieExistsError(title);
+          throw new SeatExistsError(`${row}${col}`);
         default:
           throw err;
       }
