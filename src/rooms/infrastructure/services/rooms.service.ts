@@ -17,7 +17,7 @@ export class RoomsService {
     return createRoomUseCase(this.roomsRepository)(room);
   }
 
-  getRoom(roomId: Id) {
+  async getRoom(roomId: Id) {
     return this.roomsQuery.getRoom(roomId);
   }
 }

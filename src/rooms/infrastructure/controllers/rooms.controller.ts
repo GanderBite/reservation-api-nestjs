@@ -1,3 +1,4 @@
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import {
   Body,
   ConflictException,
@@ -8,6 +9,7 @@ import {
   Param,
   Post,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { JWTAuthGuard } from 'src/auth/guards/auth-jwt.quard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
@@ -56,7 +58,9 @@ export class RoomsController {
     }
   }
 
+  @CacheTTL(60 * 1000)
   @Get('/:roomId')
+  @UseInterceptors(CacheInterceptor)
   async getRoom(@Param('roomId') roomId: Id) {
     try {
       const room = await this.roomsService.getRoom(roomId);
