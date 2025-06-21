@@ -4,6 +4,7 @@ import { DrizzleModule } from 'src/drizzle/drizzle.module';
 
 import { AclPricesService } from './infrastructure/acls/prices.service';
 import { RoomsController } from './infrastructure/controllers/rooms.controller';
+import { RoomsQuery } from './infrastructure/database/rooms.query';
 import { RoomsRepository } from './infrastructure/database/rooms.repository';
 import { SeatsRepository } from './infrastructure/database/seats.repository';
 import { RoomsService } from './infrastructure/services/rooms.service';
@@ -17,6 +18,7 @@ import { SeatService } from './infrastructure/services/seat.service';
     SeatsRepository,
     RoomsService,
     RoomsRepository,
+    RoomsQuery,
     AclPricesService,
   ],
 })

@@ -43,6 +43,13 @@
       "when": 1750519268548,
       "tag": "0005_fast_human_torch",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1750523850934,
+      "tag": "0006_old_moonstone",
+      "breakpoints": true
     }
   ]
 }

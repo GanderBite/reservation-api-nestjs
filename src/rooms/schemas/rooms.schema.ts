@@ -8,7 +8,7 @@ export const rooms = pgTable('rooms', {
   id: uuid()
     .primaryKey()
     .$defaultFn(() => uuidv4()),
-  name: varchar({ length: 50 }),
+  name: varchar({ length: 50 }).notNull(),
 });
 
 export const roomRelations = relations(rooms, ({ many }) => ({
